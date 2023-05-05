@@ -5,13 +5,21 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^1.1.2",
+        "axios": "^1.4.0",
         "laravel-vite-plugin": "^0.7.2",
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@emotion/react": "^11.10.8",
+        "@emotion/styled": "^11.10.8",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.12.3",
         "@vitejs/plugin-react": "^4.0.0",
+        "mobx": "^6.9.0",
+        "mobx-react-lite": "^3.4.3",
         "react": "^18.1.0",
-        "react-dom": "^18.1.0"
+        "react-dom": "^18.1.0",
+        "react-router-dom": "^6.11.1",
+        "sass": "^1.62.1"
     }
 }
