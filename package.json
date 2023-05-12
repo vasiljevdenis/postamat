@@ -14,6 +14,7 @@
         "@emotion/styled": "^11.10.8",
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.12.3",
+        "@pbe/react-yandex-maps": "^1.2.4",
         "@vitejs/plugin-react": "^4.0.0",
         "mobx": "^6.9.0",
         "mobx-react-lite": "^3.4.3",
