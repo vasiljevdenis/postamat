@@ -9,7 +9,7 @@
         @viteReactRefresh
         @vite('resources/js/app.jsx')
     </head>
-    <body class="antialiased">
+    <body>
             <div id="app"></div>
 
     </body>

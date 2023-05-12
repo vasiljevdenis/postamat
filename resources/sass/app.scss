@@ -1,0 +1,9 @@
+body {
+   margin: 0;
+   padding: 0;
+}
+
+.slick-slide:not(.slick-active) {
+    transition: opacity .5s ease-out;
+    opacity: 0.7;
+ }
