@@ -1,15 +1,10 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Link as RouterLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 
-export default function MenuAppBar() {
+export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -21,7 +16,7 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} position="sticky" top={'0'} zIndex={'10'}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -35,29 +30,29 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>О нас</MenuItem>
-                <MenuItem onClick={handleClose}>Реклама на постаматах</MenuItem>
-                <MenuItem onClick={handleClose}>Франшиза</MenuItem>
-                <MenuItem onClick={handleClose}>Сотрудничество</MenuItem>
-                <MenuItem onClick={handleClose}>Постамат в подъезд</MenuItem>
-                <MenuItem onClick={handleClose}>Обратная связь</MenuItem>
-                <MenuItem onClick={handleClose}>Постаматы на карте</MenuItem>
-                <MenuItem onClick={handleClose}>Поддержать развитие проекта</MenuItem>
-              </Menu>
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem component={RouterLink} to={'/about'} onClick={handleClose}>О нас</MenuItem>
+            <MenuItem component={RouterLink} to={'/ads'} onClick={handleClose}>Реклама на постаматах</MenuItem>
+            <MenuItem component={RouterLink} to={'/franchise'} onClick={handleClose}>Франшиза</MenuItem>
+            <MenuItem component={RouterLink} to={'/patrnership'} onClick={handleClose}>Сотрудничество</MenuItem>
+            <MenuItem component={RouterLink} to={'/entrance'} onClick={handleClose}>Постамат в подъезд</MenuItem>
+            <MenuItem component={RouterLink} to={'/feedback'} onClick={handleClose}>Обратная связь</MenuItem>
+            <MenuItem component={RouterLink} to={'/map'} onClick={handleClose}>Постаматы на карте</MenuItem>
+            <MenuItem component={RouterLink} to={'/donat'} onClick={handleClose}>Поддержать развитие проекта</MenuItem>
+          </Menu>
           <ThumbUpOutlinedIcon style={{
             border: '1px solid #000',
             borderRadius: '50%',
@@ -65,9 +60,10 @@ export default function MenuAppBar() {
             marginRight: '1rem'
           }} />
           <Typography
+            component={RouterLink} 
+            to={'/'}
             variant="h5"
             noWrap
-            component="a"
             href=""
             sx={{
               mr: 2,
