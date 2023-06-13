@@ -10,6 +10,7 @@ import Carousel from "../Components/Carousel";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import homeState from "../store/homeState";
+import MapPostamat from "../Components/MapPostamat";
 
 const Home = observer(() => {
 
@@ -89,19 +90,7 @@ const Home = observer(() => {
             </Box>
             <Box sx={{ width: '100%' }}>
                 <Grid item xs={12} style={{ textAlign: 'center' }}>
-                    <YMaps query={{ lang: 'en_RU', apikey: '64dda054-588c-4b0c-8fd5-36aa303a137a' }}>
-                        <Map
-                            style={{ width: '100%', height: '500px' }}
-                            defaultState={{
-                                center: [55.75, 37.61],
-                                zoom: 9,
-                                controls: ["zoomControl", "fullscreenControl"],
-                            }}
-                            modules={["control.ZoomControl", "control.FullscreenControl"]}
-                        >
-                            <Placemark defaultGeometry={[55.75, 37.61]} />
-                        </Map>
-                    </YMaps>
+                    <MapPostamat />
                 </Grid>
             </Box>
             <QRCodeScanner />

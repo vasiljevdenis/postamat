@@ -1,16 +1,26 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+// @import 'variables';
+
+// Bootstrap
+// @import 'bootstrap/scss/bootstrap';
+
+
 body {
-   margin: 0;
-   padding: 0;
-   overflow-x: hidden;
-}
-
-.slick-slide:not(.slick-active) {
-   transition: opacity .5s ease-out;
-   opacity: 0.7;
-}
-
-@media screen and (max-width: 1000px) {
-   .slick-slide img {
-      width: 100vw !important;
-   }
-}
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+ }
+ 
+ .slick-slide:not(.slick-active) {
+    transition: opacity .5s ease-out;
+    opacity: 0.7;
+ }
+ 
+ @media screen and (max-width: 1000px) {
+    .slick-slide img {
+       width: 100vw !important;
+    }
+ }

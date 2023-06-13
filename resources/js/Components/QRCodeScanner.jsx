@@ -25,9 +25,10 @@ const QRCodeScanner = observer((status) => {
       fullScreen
       open={store.open}
       onClose={handleClose}
-      TransitionComponent={Transition}
+      TransitionComponent={Transition}    
     >
-      <QrScanner
+      <QrScanner          
+        containerStyle={{ maxHeight: '100vh', width: 'auto' }}
         onDecode={(result) => handleInput(result)}
         onError={(error) => console.log(error?.message)}
       />
