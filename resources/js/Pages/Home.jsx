@@ -83,6 +83,7 @@ const Home = observer(() => {
                     <Button
                         size="large"
                         variant="contained"
+                        disabled={true}
                     >
                         Открыть ячейку
                     </Button>
