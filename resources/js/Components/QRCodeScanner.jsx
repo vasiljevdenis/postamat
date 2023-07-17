@@ -22,13 +22,12 @@ const QRCodeScanner = observer((status) => {
 
   return (
     <Dialog
-      fullScreen
+      fullWidth
       open={store.open}
       onClose={handleClose}
       TransitionComponent={Transition}    
     >
       <QrScanner          
-        containerStyle={{ maxHeight: '100vh', width: 'auto' }}
         onDecode={(result) => handleInput(result)}
         onError={(error) => console.log(error?.message)}
       />

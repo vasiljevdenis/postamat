@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link as RouterLink } from 'react-router-dom';
+import QRCodeScanner from "../Components/QRCodeScanner";
+import MapPostamat from "../Components/MapPostamat";
 
 const Map = () => {
   const [state, setState] = useState({
@@ -29,10 +31,12 @@ const Map = () => {
   return state ? (
     <Box pt={5} pb={5} pl={5} pr={5}>
       <Grid item xs={12} style={{ textAlign: 'center' }}>
-        <Typography variant="h2" gutterBottom>
+        <Typography sx={{ typography: { xs: 'h5', sm: 'h4', lg: 'h2' } }} gutterBottom>
           { state.title }
         </Typography>
-        <img src={ state.image } style={{ width: '100%', maxWidth: '1200px' }} alt={ state.title } />
+      </Grid>
+      <Grid item xs={12} style={{ textAlign: 'center' }}>
+        <MapPostamat/>
       </Grid>
       <Grid item xs={12} style={{ textAlign: 'left' }} pt={3} pb={3}>
         <Typography variant="body1" gutterBottom>

@@ -20,6 +20,16 @@ const Home = observer(() => {
         store.toggleModal();
     }
 
+    const changeBoxCode = (e) => {
+        const value = e.target.value;
+        store.changeBoxCode(value);
+    }
+
+    const changeCodeInp = (e) => {
+        const value = e.target.value;
+        store.changeCodeInp(value);
+    }
+
     return (
         <>
             <Box sx={{ width: '100%' }}>
@@ -32,8 +42,8 @@ const Home = observer(() => {
                 sx={{
                     textAlign: 'center',
                     background: '#f2f3f8',
-                    '& .MuiTextField-root': { m: 1, width: '45ch' },
-                    '& .MuiButton-root': { m: 1, width: '43ch' },
+                    '& .MuiTextField-root': { m: 1, maxWidth: '300px', width: '100%' },
+                    '& .MuiButton-root': { m: 1, maxWidth: '300px', width: '100%' },
                 }}
                 noValidate
                 autoComplete="off"
@@ -49,13 +59,37 @@ const Home = observer(() => {
                     <TextField
                         id="outlined-error"
                         label="Введите код посылки"
+                        value={store.boxCodeVal}
+                        onChange={changeBoxCode}
                     />
-                    <FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
+                    <FormControl sx={{ m: 1, maxWidth: '300px', width: '100%' }} variant="outlined">
+                        <InputLabel htmlFor="code-postamat">Введите номер с постамата</InputLabel>
+                        <OutlinedInput
+                            id="code-box"
+                            type='text'
+                            value={store.boxCodeVal}
+                            onChange={changeBoxCode}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleOpenModal}
+                                        aria-label="qr scanner"
+                                        edge="end"
+                                    >
+                                        <QrCodeScannerIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Введите номер с постамата"
+                        />
+                    </FormControl>
+                    <FormControl sx={{ m: 1, maxWidth: '300px', width: '100%' }} variant="outlined">
                         <InputLabel htmlFor="code-postamat">Введите номер с постамата</InputLabel>
                         <OutlinedInput
                             id="code-postamat"
                             type='text'
-                            value={store.inpValue}
+                            value={store.codeInpVal}
+                            onChange={changeCodeInp}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -83,7 +117,7 @@ const Home = observer(() => {
                     <Button
                         size="large"
                         variant="contained"
-                        disabled={true}
+                        disabled={store.btnDisabledVal}
                     >
                         Открыть ячейку
                     </Button>

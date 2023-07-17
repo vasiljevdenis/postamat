@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        '/feedback/send',
         '/api/images/all',
         '/api/slider/update',
         '/api/slider/delete',

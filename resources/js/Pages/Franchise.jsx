@@ -29,7 +29,7 @@ const Franchise = () => {
   return state ? (
     <Box pt={5} pb={5} pl={5} pr={5}>
       <Grid item xs={12} style={{ textAlign: 'center' }}>
-        <Typography variant="h2" gutterBottom>
+        <Typography sx={{ typography: { xs: 'h5', sm: 'h4', lg: 'h2' } }} gutterBottom>
           { state.title }
         </Typography>
         <img src={ state.image } style={{ width: '100%', maxWidth: '1200px' }} alt={ state.title } />

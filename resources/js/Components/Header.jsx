@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,7 +63,6 @@ export default function Header() {
           <Typography
             component={RouterLink} 
             to={'/'}
-            variant="h5"
             noWrap
             href=""
             sx={{
@@ -73,10 +73,15 @@ export default function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              typography: { xs: 'h6', sm: 'h5', lg: 'h4' }
             }}
           >
             ВСЁ ПРО-100
           </Typography>
+          <IconButton component={RouterLink} to={'/feedback'} variant="outlined" aria-label="feedback" sx={{ color: "#000", display: { xs: 'block', sm: 'none' } }}>
+            <FeedbackIcon />
+          </IconButton>
+          <Button component={RouterLink} to={'/feedback'} variant="outlined" sx={{ color: "#000", border: "1px solid #000", display: { xs: 'none', sm: 'block' } }}>Обратная связь</Button>
         </Toolbar>
       </AppBar>
     </Box>

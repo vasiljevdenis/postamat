@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -115,3 +116,15 @@ Route::view('/{path}', 'welcome')
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/feedback/send', function(Request $request) {
+    $arr = [
+        'name' => $request->input('name'),
+        'phone' => $request->input('phone'),
+        'email' => $request->input('email'),
+        'subject' => $request->input('subject'),
+        'text' => $request->input('text')
+    ];
+    $mc = new MailController();
+    return $mc->index($arr);
+});
