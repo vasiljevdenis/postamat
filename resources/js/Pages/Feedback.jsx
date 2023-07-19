@@ -112,6 +112,10 @@ const Feedback = () => {
         .then(res => {
           console.log(res);
           setSnackbar({ ...snackbar, open: true, text: 'Успешно отправлено!', status: "success" });
+          setName('');
+          setPhone('');
+          setEmail('');
+          setText('');
         })
         .catch(err => {
           console.log(err);

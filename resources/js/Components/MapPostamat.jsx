@@ -56,7 +56,8 @@ const MapPostamat = () => {
                                     properties={{
                                         hintContent: el.address,
                                         balloonContentHeader: '<a href = "#">' + el.address + '</a>',
-                                        balloonContentBody: '<div style="text-align: center;"><img src="' + el.image + '" style="width: 100%; max-width: 300px;"></div><br/>' + '<b>' + el.address + '</b><br/>' + el.description
+                                        balloonContentBody: '<div style="text-align: center;"><img src="' + el.image + '" style="width: 100%; max-width: 300px;"></div><br/>' + '<b>' + el.address + '</b><br/>' + el.description,
+                                        balloonContentFooter: `<center><button type="button" class="btn-postamat" onClick="location.href='/ads'">Реклама на постаматах</button></center>`
                                     }}
                                     options={{
                                         iconColor: '#00bd9d'

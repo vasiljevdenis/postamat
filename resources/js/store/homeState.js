@@ -4,6 +4,7 @@ class homeState {
 
   openModal = false;
   btnDisabled = true;
+  currentInp = '';
   boxCode = '';
   codeInput = '';
 
@@ -33,6 +34,10 @@ class homeState {
     }
   }
 
+  changeCurInp(value) {   
+    this.currentInp = value;
+  }
+
 
   get open() {
     return this.openModal;
@@ -48,6 +53,10 @@ class homeState {
 
   get codeInpVal() {
     return this.codeInput;
+  }
+
+  get curInpVal() {
+    return this.currentInp;
   }
 
 }

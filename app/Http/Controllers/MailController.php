@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
  
 use Mail;
 use App\Mail\MailNotify;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MailController extends Controller
 {
@@ -16,7 +18,8 @@ class MailController extends Controller
       ];
     try
     {
-      Mail::to('vasiljevdenis@bk.ru')->send(new MailNotify($data));
+      $email = DB::select('select email from users where id = 1');
+      Mail::to($email)->send(new MailNotify($data));
       return response()->json(['Great! Successfully send in your mail']);
     }
     catch(Exception $e)

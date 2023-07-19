@@ -24,6 +24,7 @@ const Carousel = () => {
         settings: {
           centerMode: false,
           adaptiveHeight: true,
+          dots: false
         }
       }
     ]

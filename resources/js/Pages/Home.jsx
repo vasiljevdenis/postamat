@@ -16,7 +16,8 @@ const Home = observer(() => {
 
     const [store] = useState(homeState);
 
-    function handleOpenModal() {
+    function handleOpenModal(cur) {
+        store.changeCurInp(cur);
         store.toggleModal();
     }
 
@@ -49,21 +50,15 @@ const Home = observer(() => {
                 autoComplete="off"
                 pt={{ xs: 5, sm: 8 }}
                 pb={{ xs: 5, sm: 8 }}
-                mt={{ xs: 6, sm: 4 }}
+                mt={{ xs: 0, sm: 4 }}
                 mb={{ xs: 6, sm: 4 }}
             >
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" gutterBottom sx={{ typography: { xs: 'h5', sm: 'h4' } }}>
                     Для открытия ячейки заполните поля ниже
                 </Typography>
                 <div>
-                    <TextField
-                        id="outlined-error"
-                        label="Введите код посылки"
-                        value={store.boxCodeVal}
-                        onChange={changeBoxCode}
-                    />
                     <FormControl sx={{ m: 1, maxWidth: '300px', width: '100%' }} variant="outlined">
-                        <InputLabel htmlFor="code-postamat">Введите номер с постамата</InputLabel>
+                        <InputLabel htmlFor="code-box">Введите код посылки</InputLabel>
                         <OutlinedInput
                             id="code-box"
                             type='text'
@@ -72,7 +67,7 @@ const Home = observer(() => {
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleOpenModal}
+                                        onClick={() => handleOpenModal('box')}
                                         aria-label="qr scanner"
                                         edge="end"
                                     >
@@ -80,7 +75,7 @@ const Home = observer(() => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Введите номер с постамата"
+                            label="Введите код посылки"
                         />
                     </FormControl>
                     <FormControl sx={{ m: 1, maxWidth: '300px', width: '100%' }} variant="outlined">
@@ -93,7 +88,7 @@ const Home = observer(() => {
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleOpenModal}
+                                        onClick={() => handleOpenModal('code')}
                                         aria-label="qr scanner"
                                         edge="end"
                                     >

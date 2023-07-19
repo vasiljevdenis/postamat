@@ -16,7 +16,11 @@ const QRCodeScanner = observer((status) => {
     store.toggleModal();
   }
   const handleInput = (val) => {
-    store.changeCodeInp(val);
+    if (store.curInpVal === 'box') {
+      store.changeBoxCode(val);
+    } else {
+      store.changeCodeInp(val);
+    }
     store.toggleModal();
   }
 
@@ -24,12 +28,12 @@ const QRCodeScanner = observer((status) => {
     <Dialog
       fullWidth
       open={store.open}
-      onClose={handleClose}
+      onClose={handleClose}      
       TransitionComponent={Transition}    
     >
       <QrScanner          
         onDecode={(result) => handleInput(result)}
-        onError={(error) => console.log(error?.message)}
+        onError={(error) => console.log(error?.message)}        
       />
     </Dialog>
   )
