@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -91,7 +92,34 @@ Route::post('/api/postamats/new', function (Request $request) {
     $address = $request->input('address');
     $coords = $request->input('coords');
     $text = $request->input('text');
-    $json = DB::insert('insert into postamats (address, description, coords, image) values (?, ?, ?, ?)', [$address, $text, $coords, $image]);
+    $number = $request->input('number');
+    $count = (int) $request->input('count');
+    $width = (int) $request->input('width');
+    $height = (int) $request->input('height');
+    $depth = (int) $request->input('depth');
+    $weight = (int) $request->input('weight');
+    $scheduleFrom = $request->input('scheduleFrom');
+    $scheduleTo = $request->input('scheduleTo');
+    $partnerId = $request->input('partnerId');
+    $date = $request->input('date');
+    $json = DB::insert(
+        "insert into postamats (address, description, coords, image, number, count, width, height, depth, weight, schedule_from, schedule_to, partner_id, deal_date) values (:address, :text, :coords, :image, :number, :count, :width, :height, :depth, :weight, :scheduleFrom, :scheduleTo, :partnerId, :date)", 
+        [
+            'address' => $address, 
+            'text' => $text, 
+            'coords' => $coords, 
+            'image' => $image, 
+            'number' => $number, 
+            'count' => $count, 
+            'width' => $width, 
+            'height' => $height, 
+            'depth' => $depth, 
+            'weight' => $weight, 
+            'scheduleFrom' => $scheduleFrom, 
+            'scheduleTo' => $scheduleTo, 
+            'partnerId' => $partnerId === null || $partnerId === "null" ? null : $partnerId,
+            'date' => $date === null || $date === "null" ? null : $date
+        ]);
     return $json;
 });
 
@@ -119,6 +147,13 @@ Route::get('/api/page/{page}', function ($page) {
     $json = DB::select('select * from data where page = :page', ['page' => $page]);
     return $json;
 });
+
+// Public API Routes
+
+Route::get('/api/v1/postamats', [ApiController::class, 'getPostamats']);
+Route::get('/api/v1/package/new', [ApiController::class, 'newPackage']);
+// /api/v1/package/new?postamat_id=975352&cell_count=3&width=50&height=50&depth=50&weight=10
+
 Route::view('/{path}', 'welcome')
     ->where('path', '.*');
 

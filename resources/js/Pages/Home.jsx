@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import DoneIcon from '@mui/icons-material/Done';
@@ -19,6 +19,10 @@ const Home = observer(() => {
     function handleOpenModal(cur) {
         store.changeCurInp(cur);
         store.toggleModal();
+    }
+
+    function toggleStatus() {
+        store.toggleModalStatus();
     }
 
     const changeBoxCode = (e) => {
@@ -61,7 +65,7 @@ const Home = observer(() => {
                         <InputLabel htmlFor="code-box">Введите код посылки</InputLabel>
                         <OutlinedInput
                             id="code-box"
-                            type='text'
+                            type='text'                            
                             value={store.boxCodeVal}
                             onChange={changeBoxCode}
                             endAdornment={
@@ -113,6 +117,7 @@ const Home = observer(() => {
                         size="large"
                         variant="contained"
                         disabled={store.btnDisabledVal}
+                        onClick={toggleStatus}
                     >
                         Открыть ячейку
                     </Button>
@@ -124,6 +129,25 @@ const Home = observer(() => {
                 </Grid>
             </Box>
             <QRCodeScanner />
+            <Dialog
+                open={store.openModalStatus}
+                onClose={toggleStatus}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    {""}
+                </DialogTitle>
+                <DialogContent>
+                    <Box sx={{ width: '100%' }}>
+                        <Typography>{store.cellStatus}</Typography>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={toggleStatus}>
+                        Отмена
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 });

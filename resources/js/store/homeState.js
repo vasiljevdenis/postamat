@@ -7,6 +7,8 @@ class homeState {
   currentInp = '';
   boxCode = '';
   codeInput = '';
+  cellStatus = 'Проверяем код посылки';
+  openModalStatus = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,9 +18,13 @@ class homeState {
     this.openModal = !this.openModal;
   }
 
+  toggleModalStatus() {   
+    this.openModalStatus = !this.openModalStatus;
+  }
+
   changeBoxCode(value) {   
     this.boxCode = value;
-    if (this.boxCode.length > 0 && this.codeInput.length > 0) {
+    if (this.boxCode.length > 0) {
       this.btnDisabled = false;
     } else {
       this.btnDisabled = true;
@@ -27,11 +33,6 @@ class homeState {
 
   changeCodeInp(value) {   
     this.codeInput = value;
-    if (this.boxCode.length > 0 && this.codeInput.length > 0) {
-      this.btnDisabled = false;
-    } else {
-      this.btnDisabled = true;
-    }
   }
 
   changeCurInp(value) {   
@@ -41,6 +42,10 @@ class homeState {
 
   get open() {
     return this.openModal;
+  }
+
+  get openStatus() {
+    return this.openModalStatus;
   }
 
   get btnDisabledVal() {
