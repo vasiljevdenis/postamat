@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        '/controllers/postamats/*',
         '/feedback/send',
         '/user/*',
         '/api/images/all',

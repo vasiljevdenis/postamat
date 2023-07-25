@@ -4,6 +4,8 @@ class homeState {
 
   openModal = false;
   btnDisabled = true;
+  timer = false;
+  timerVsibility = 'none';
   currentInp = '';
   boxCode = '';
   codeInput = '';
@@ -39,6 +41,18 @@ class homeState {
     this.currentInp = value;
   }
 
+  changeCellStatus(value) {   
+    this.cellStatus = value;
+  }
+
+  changeTimer(value) {   
+    this.timer = value;
+  }
+
+  changeTimerV(value) {   
+    this.timerVsibility = value;
+  }
+
 
   get open() {
     return this.openModal;
@@ -62,6 +76,18 @@ class homeState {
 
   get curInpVal() {
     return this.currentInp;
+  }
+
+  get cellStatusVal() {
+    return this.cellStatus;
+  }
+
+  get timerStatus() {
+    return this.timer;
+  }
+
+  get visibilityTimer() {
+    return this.timerVsibility;
   }
 
 }

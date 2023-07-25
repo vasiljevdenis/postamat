@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PostamatController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,8 +103,11 @@ Route::post('/api/postamats/new', function (Request $request) {
     $scheduleTo = $request->input('scheduleTo');
     $partnerId = $request->input('partnerId');
     $date = $request->input('date');
+    $cell_category = $request->input('cell_category');
+    $domofon_code = $request->input('domofon_code');
+    $rent_price = $request->input('rent_price');
     $json = DB::insert(
-        "insert into postamats (address, description, coords, image, number, count, width, height, depth, weight, schedule_from, schedule_to, partner_id, deal_date) values (:address, :text, :coords, :image, :number, :count, :width, :height, :depth, :weight, :scheduleFrom, :scheduleTo, :partnerId, :date)", 
+        "insert into postamats (address, description, coords, image, number, count, width, height, depth, weight, schedule_from, schedule_to, partner_id, deal_date, cell_category, domofon_code, rent_price) values (:address, :text, :coords, :image, :number, :count, :width, :height, :depth, :weight, :scheduleFrom, :scheduleTo, :partnerId, :date, :cell_category, :domofon_code, :rent_price)", 
         [
             'address' => $address, 
             'text' => $text, 
@@ -118,7 +122,10 @@ Route::post('/api/postamats/new', function (Request $request) {
             'scheduleFrom' => $scheduleFrom, 
             'scheduleTo' => $scheduleTo, 
             'partnerId' => $partnerId === null || $partnerId === "null" ? null : $partnerId,
-            'date' => $date === null || $date === "null" ? null : $date
+            'date' => $date === null || $date === "null" ? null : $date,
+            'cell_category' => $cell_category,
+            'domofon_code' => $domofon_code,
+            'rent_price' => $rent_price
         ]);
     return $json;
 });
@@ -153,6 +160,11 @@ Route::get('/api/page/{page}', function ($page) {
 Route::get('/api/v1/postamats', [ApiController::class, 'getPostamats']);
 Route::get('/api/v1/package/new', [ApiController::class, 'newPackage']);
 // /api/v1/package/new?postamat_id=975352&cell_count=3&width=50&height=50&depth=50&weight=10
+
+// Postamat Controller Routes
+
+Route::get('/controllers/postamats/checkpackage', [PostamatController::class, 'checkPackage']);
+Route::get('/controllers/postamats/opencell', [PostamatController::class, 'openCell']);
 
 Route::view('/{path}', 'welcome')
     ->where('path', '.*');

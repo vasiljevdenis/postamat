@@ -16,6 +16,7 @@ class ApiController extends Controller
             $obj = array(
                 "id" => $el->number,
                 "address" => $el->address,
+                "coords" => json_decode($el->coords),
                 "schedule" => array(
                     "from" => $el->schedule_from,
                     "to" => $el->schedule_to

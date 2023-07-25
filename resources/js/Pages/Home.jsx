@@ -11,10 +11,16 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import homeState from "../store/homeState";
 import MapPostamat from "../Components/MapPostamat";
+import axios from "axios";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const Home = observer(() => {
 
     const [store] = useState(homeState);
+
+    const [icon, setIcon] = useState(<CloseIcon />);
+    const [success, setSuccess] = useState(true);
+    const [cellStatus, setCellStatus] = useState('Закрыта');
 
     function handleOpenModal(cur) {
         store.changeCurInp(cur);
@@ -33,6 +39,54 @@ const Home = observer(() => {
     const changeCodeInp = (e) => {
         const value = e.target.value;
         store.changeCodeInp(value);
+    }
+
+    const openButton = () => {
+        axios.get(import.meta.env.VITE_APP_BASE_URL + `/controllers/postamats/checkpackage?courier_code=${store.boxCodeVal}`)
+            .then(res => {
+                let json = res.data;
+                console.log(json);
+                if (json.status) {
+                    if (store.codeInpVal.length > 0) {
+                        if (store.codeInpVal === json.postamat_id) {
+                            store.changeCellStatus('Ячейка откроется в течении минуты');
+                            store.changeTimerV('block');
+                            store.changeTimer(true);
+                            axios.get(import.meta.env.VITE_APP_BASE_URL + `/controllers/postamats/opencell?postamat_id=${json.postamat_id}&cell=${json.cell}`)
+                                .then(res => {
+                                    let result = res.data;
+                                    console.log(result);                                    
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
+                                .finally(() => {
+                                });
+                        } else {
+                            store.changeCellStatus('Проверьте правильность введенных данных и повторите попытку');
+                        }
+                    } else {
+                        store.changeCellStatus('Необходимо ввести код написанный на постамате. <br> <small>Код для домофона: ' + json.domofon_code + '</small>');
+                    }
+                } else {
+                    store.changeCellStatus(json.message);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+            });
+    }
+
+    const finalSatus = () => {
+        store.changeCellStatus('Ячейка открыта');
+        store.changeTimerV('none');
+        store.changeTimer(false);
+        store.toggleModalStatus();
+        setIcon(<DoneIcon />);
+        setSuccess(false);
+        setCellStatus('Открыта');
     }
 
     return (
@@ -65,7 +119,7 @@ const Home = observer(() => {
                         <InputLabel htmlFor="code-box">Введите код посылки</InputLabel>
                         <OutlinedInput
                             id="code-box"
-                            type='text'                            
+                            type='text'
                             value={store.boxCodeVal}
                             onChange={changeBoxCode}
                             endAdornment={
@@ -106,18 +160,21 @@ const Home = observer(() => {
                 </div>
                 <div>
                     <Button
-                        disabled
+                        disabled={success}
                         size="large"
                         variant="outlined"
-                        startIcon={<CloseIcon />}
+                        startIcon={icon}
                     >
-                        Закрыта
+                        {cellStatus}
                     </Button>
                     <Button
                         size="large"
                         variant="contained"
                         disabled={store.btnDisabledVal}
-                        onClick={toggleStatus}
+                        onClick={() => {
+                            toggleStatus();
+                            openButton();
+                        }}
                     >
                         Открыть ячейку
                     </Button>
@@ -139,12 +196,24 @@ const Home = observer(() => {
                 </DialogTitle>
                 <DialogContent>
                     <Box sx={{ width: '100%' }}>
-                        <Typography>{store.cellStatus}</Typography>
+                        <Typography dangerouslySetInnerHTML={{ __html: store.cellStatusVal }}></Typography>
+                    </Box>
+                    <Box sx={{ width: '100%' }} display={store.visibilityTimer}>
+                        <CountdownCircleTimer
+                            isPlaying={store.timerStatus}
+                            duration={60}
+                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                            colorsTime={[60, 40, 20, 0]}
+                            size={120}
+                            onComplete={finalSatus}
+                        >
+                            {({ remainingTime }) => remainingTime}
+                        </CountdownCircleTimer>
                     </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={toggleStatus}>
-                        Отмена
+                        Закрыть
                     </Button>
                 </DialogActions>
             </Dialog>
